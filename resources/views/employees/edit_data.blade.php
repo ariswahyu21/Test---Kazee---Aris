@@ -131,9 +131,11 @@
                             </select>
                         </div>
 
-                        <div class="flex items-center justify-end mt-4">
-                            <button type="submit" class="px-6 py-3 bg-gray-50 hover:text-indigo-900">{{ __('Update') }}</button>
+                        <div class="flex justify-end mt-4 space-x-6">
+                            <a href="{{ route('employees.index') }}" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">Kembali</a>
+                            <button type="submit" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">{{ __('Update') }}</button>
                         </div>
+
                     </form>
                 </div>
             </div>
