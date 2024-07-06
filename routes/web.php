@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [EmployeeController::class, 'index'])->name('dashboard');
     Route::get('/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
     Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
+    Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show');
 });
 
 require __DIR__ . '/auth.php';
