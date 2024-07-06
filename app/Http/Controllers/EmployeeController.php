@@ -21,15 +21,26 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:employees,email',
-            'position' => 'required',
+            'nomor_induk' => 'required|max:16',
+            'nama_karyawan' => 'required|string|max:255',
+            'no_ktp' => 'nullable|digits:16',
+            'alamat' => 'nullable|string|max:255',
+            'tempat_lahir' => 'nullable|string|max:255',
+            'tanggal_lahir' => 'nullable|date',
+            'no_telepon' => 'nullable|string|max:15',
+            'jenis_kelamin' => 'nullable|string|max:255',
+            'agama' => 'nullable|string|max:255',
+            'status_pernikahan' => 'nullable|string|max:255',
+            'jenjang_pendidikan' => 'nullable|string|max:255',
+            'tahun_lulus' => 'nullable|digits:4',
+            'tahun_bergabung' => 'nullable|digits:4',
+            'lama_bekerja' => 'nullable|integer|max:100',
+            'status_karyawan' => 'nullable|string|max:255',
         ]);
 
         Employee::create($request->all());
 
-        return redirect()->route('employees.index')
-            ->with('success', 'Employee created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Employee created successfully.');
     }
 
     public function edit(Employee $employee)
