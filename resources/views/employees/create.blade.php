@@ -132,11 +132,30 @@
 
                         <div class="flex items-center justify-end mt-4">
                             <a href="{{ route('employees.index') }}" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">Kembali</a>
-                            <button type="submit" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">{{ __('Save') }}</button>
+                            <button type="button" onclick="confirmCreate()" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">{{ __('Simpan') }}</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmCreate() {
+            Swal.fire({
+                title: 'Apakah anda sudah yakin?',
+                text: "Anda akan membuat data karyawan baru!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batalkan'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('create-form').submit();
+                }
+            })
+        }
+    </script>
 </x-app-layout>

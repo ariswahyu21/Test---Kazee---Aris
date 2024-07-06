@@ -133,7 +133,7 @@
 
                         <div class="flex justify-end mt-4 space-x-6">
                             <a href="{{ route('employees.index') }}" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">Kembali</a>
-                            <button type="submit" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">{{ __('Update') }}</button>
+                            <button type="button" onclick="confirmEdit()" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">{{ __('Update') }}</button>
                         </div>
 
                     </form>
@@ -141,4 +141,23 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmEdit() {
+            Swal.fire({
+                title: 'Apa anda sudah yakin?',
+                text: "Anda akan mengedit data karyawan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Perbarui!',
+                cancelButtonText: 'Batalkan'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('edit-form').submit();
+                }
+            })
+        }
+    </script>
 </x-app-layout>

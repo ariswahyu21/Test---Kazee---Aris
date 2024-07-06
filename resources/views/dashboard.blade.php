@@ -40,7 +40,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="{{ route('employees.show', $employee->id) }}" class="text-blue-600 hover:text-blue-900">Lihat</a>
                                         <a href="{{ route('employees.edit', $employee->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                        <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="inline-block">
+                                        <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" onsubmit="return confirmDelete(event)" class="inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
@@ -55,4 +55,25 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
+            const form = event.target;
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan menghapus data karyawan tersebut!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batalkan'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        }
+    </script>
 </x-app-layout>
