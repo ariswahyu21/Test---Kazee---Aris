@@ -1,50 +1,44 @@
-<!DOCTYPE html>
-<html>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Employees') }}
+        </h2>
+    </x-slot>
 
-<head>
-    <title>Employee Management</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-</head>
-
-<body>
-    <div class="container">
-        <h2>Employee List</h2>
-
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <!-- Content of Employee Index -->
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Karyawan</th>
+                                <th class="px-6 py-3 bg-gray-50">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($employees as $employee)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $employee->nama_karyawan }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $employee->email }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $employee->status_karyawan }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="{{ route('employees.edit', $employee->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        @endif
-
-        <a class="btn btn-success" href="{{ route('employees.create') }}"> Create New Employee</a>
-
-        <table class="table table-bordered">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Position</th>
-                <th width="280px">Action</th>
-            </tr>
-            @foreach ($employees as $employee)
-            <tr>
-                <td>{{ $employee->name }}</td>
-                <td>{{ $employee->email }}</td>
-                <td>{{ $employee->position }}</td>
-                <td>
-                    <form action="{{ route('employees.destroy',$employee->id) }}" method="POST">
-
-                        <a class="btn btn-primary" href="{{ route('employees.edit',$employee->id) }}">Edit</a>
-
-                        @csrf
-                        @method('DELETE')
-
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </table>
     </div>
-</body>
-
-</html>
+</x-app-layout>

@@ -9,8 +9,8 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::all();
-        return view('employees.index', compact('employees'));
+        $employees = Employee::all(); // Mengambil semua data karyawan
+        return view('dashboard', compact('employees')); // Mengirim data ke view
     }
 
     public function create()
