@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Employee') }}
+            {{ __('Tambah Data Karyawan') }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- Employee Form -->
-                    <form method="POST" action="{{ route('employees.store') }}">
+                    <form method="POST" action="{{ route('employees.store') }}" id="create-form">
                         @csrf
 
                         <!-- Nomor Induk Karyawan -->
@@ -140,8 +140,20 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         function confirmCreate() {
+            let form = document.getElementById('create-form');
+            let isValid = form.checkValidity();
+
+            if (!isValid) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Mohon lengkapi semua kolom sebelum menyimpan!'
+                });
+                return;
+            }
             Swal.fire({
                 title: 'Apakah anda sudah yakin?',
                 text: "Anda akan membuat data karyawan baru!",

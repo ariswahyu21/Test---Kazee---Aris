@@ -7,10 +7,16 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all(); // Mengambil semua data karyawan
-        return view('dashboard', compact('employees')); // Mengirim data ke view
+        $perPage = $request->input('per_page', 10); // Default per_page to 10
+        if ($perPage == 'all') {
+            $employees = Employee::all(); // Retrieve all records
+        } else {
+            $employees = Employee::paginate((int)$perPage); // Paginate based on per_page value
+        }
+
+        return view('dashboard', compact('employees'));
     }
 
     public function create()
@@ -21,7 +27,11 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomor_induk' => 'required|max:16',
+            'nomor_induk' => [
+                'required',
+                'numeric',
+                'unique:employees,nomor_induk',
+            ],
             'nama_karyawan' => 'required|string|max:255',
             'no_ktp' => 'nullable|digits:16',
             'alamat' => 'nullable|string|max:255',
@@ -40,7 +50,8 @@ class EmployeeController extends Controller
 
         Employee::create($request->all());
 
-        return redirect()->route('dashboard')->with('success', 'Employee created successfully.');
+        return redirect()->route('employees.index')
+            ->with('success', 'Karyawan berhasil ditambahkan.');
     }
 
     public function edit(Employee $employee)
@@ -70,7 +81,8 @@ class EmployeeController extends Controller
 
         $employee->update($validatedData);
 
-        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
+        return redirect()->route('employees.index')
+            ->with('update', 'Karyawan berhasil diubah.');
     }
 
     public function show($id)
@@ -79,12 +91,11 @@ class EmployeeController extends Controller
         return view('employees.show_data', compact('employee'));
     }
 
-
     public function destroy(Employee $employee)
     {
         $employee->delete();
 
         return redirect()->route('employees.index')
-            ->with('success', 'Employee deleted successfully.');
+            ->with('delete', 'Karyawan berhasil dihapus.');
     }
 }
