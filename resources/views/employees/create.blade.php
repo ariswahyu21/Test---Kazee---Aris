@@ -81,8 +81,8 @@
                         <div class="mt-4">
                             <label for="status_pernikahan" class="block font-medium text-sm text-gray-700">{{ __('Status Pernikahan') }}</label>
                             <select id="status_pernikahan" name="status_pernikahan" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <option value="Belum Menikah" {{ old('status_pernikahan') == 'Belum Menikah' ? 'selected' : '' }}>Belum Menikah</option>
-                                <option value="Menikah" {{ old('status_pernikahan') == 'Menikah' ? 'selected' : '' }}>Menikah</option>
+                                <option value="Belum Kawin" {{ old('status_pernikahan') == 'Belum Menikah' ? 'selected' : '' }}>Belum Kawin</option>
+                                <option value="Kawin" {{ old('status_pernikahan') == 'Menikah' ? 'selected' : '' }}>Kawin</option>
                                 <option value="Cerai Hidup" {{ old('status_pernikahan') == 'Cerai Hidup' ? 'selected' : '' }}>Cerai Hidup</option>
                                 <option value="Cerai Mati" {{ old('status_pernikahan') == 'Cerai Mati' ? 'selected' : '' }}>Cerai Mati</option>
                             </select>

@@ -50,12 +50,9 @@ class EmployeeController extends Controller
 
         try {
             Employee::create($request->all());
-            return redirect()->route('employees.index')
-                ->with('success', 'Karyawan berhasil ditambahkan.');
+            return redirect()->route('employees.index')->with('success', 'Karyawan berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal menambahkan karyawan. Mohon inputkan data dengan valid.');
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan karyawan. Mohon inputkan data dengan valid.');
         }
     }
 
