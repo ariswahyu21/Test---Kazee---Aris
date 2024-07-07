@@ -15,9 +15,4 @@ class Department extends Model
     {
         return $this->hasMany(Employee::class);
     }
-    public function create()
-    {
-        $departments = Department::all();
-        return view('employees.create', compact('departments'));
-    }
 }

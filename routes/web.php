@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
     Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show');
     Route::resource('departments', DepartmentController::class);
+    Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('employees.update');
 });
 
 require __DIR__ . '/auth.php';

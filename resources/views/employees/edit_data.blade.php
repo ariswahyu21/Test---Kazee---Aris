@@ -131,6 +131,15 @@
                             </select>
                         </div>
 
+                        <div class="mt-4">
+                            <label for="department_id" class="block font-medium text-sm text-gray-700">{{ __('Departemen') }}</label>
+                            <select id="department_id" name="department_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                @foreach($departments as $department)
+                                <option value="{{ $department->id }}" {{ $employee->department_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="flex justify-end mt-4 space-x-6">
                             <a href="{{ route('employees.index') }}" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">Kembali</a>
                             <button type="button" onclick="confirmEdit()" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">{{ __('Update') }}</button>

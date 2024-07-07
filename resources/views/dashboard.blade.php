@@ -32,9 +32,9 @@
                         <table class="w-full divide-y divide-gray-200">
                             <thead>
                                 <tr>
-                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIK</th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Karyawan</th>
                                     <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
-                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No Telp</th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Departemen</th>
                                     <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Karyawan</th>
                                     <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun Bergabung</th>
                                     <th class="px-6 py-3 bg-gray-50">Aksi</th>
@@ -45,7 +45,7 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->nomor_induk }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->nama_karyawan }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->no_telepon }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $employee->department->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->status_karyawan }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $employee->tahun_bergabung }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">

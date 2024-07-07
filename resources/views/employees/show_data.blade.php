@@ -77,6 +77,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap font-bold">Status Karyawan</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $employee->status_karyawan }}</td>
                             </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-bold">Departemen</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $employee->department->name }}</td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="flex justify-end mt-4">

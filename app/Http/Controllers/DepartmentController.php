@@ -23,13 +23,15 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:departments'
+            'name' => 'required|string|max:255|unique:departments,name',
         ]);
 
-        Department::create($request->all());
+        // Create department
+        Department::create([
+            'name' => $request->name,
+        ]);
 
-        return redirect()->route('departments.index')
-            ->with('success', 'Departemen berhasil ditambahkan.');
+        return redirect()->route('departments.index')->with('success', 'Department created successfully.');
     }
 
     public function edit(Department $department)
@@ -40,7 +42,7 @@ class DepartmentController extends Controller
     public function update(Request $request, Department $department)
     {
         $request->validate([
-            'name' => 'required|unique:departments,name,' . $department->id
+            'name' => 'required|string|max:255|unique:departments,name,' . $department->id,
         ]);
 
         $department->update($request->all());

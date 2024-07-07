@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Department;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -61,40 +62,74 @@ class EmployeeController extends Controller
         }
     }
 
-    public function edit(Employee $employee)
+    public function edit($id)
     {
-        return view('employees.edit_data', compact('employee'));
+        $employee = Employee::findOrFail($id);
+        $departments = Department::all(); // Ambil semua data departemen
+
+        return view('employees.edit_data', compact('employee', 'departments'));
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'nomor_induk' => 'required|max:16',
+        Log::info('Update request received for employee ID: ' . $id);
+
+        $request->validate([
+            'nomor_induk' => 'required|unique:employees,nomor_induk,' . $id,
             'nama_karyawan' => 'required|string|max:255',
             'no_ktp' => 'required|string|size:16',
             'alamat' => 'required|string|max:100',
             'tempat_lahir' => 'required|string|max:25',
             'tanggal_lahir' => 'required|date',
             'no_telepon' => 'required|string|max:15',
-            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|string',
             'status_pernikahan' => 'required|string',
             'jenjang_pendidikan' => 'required|string',
-            'tahun_lulus' => 'required|integer|between:1960,2099',
-            'tahun_bergabung' => 'required|integer|between:1960,2099',
-            'lama_bekerja' => 'required|integer',
-            'status_karyawan' => 'required|string'
+            'tahun_lulus' => 'required|numeric|between:1960,2099',
+            'tahun_bergabung' => 'required|numeric|between:1960,2099',
+            'lama_bekerja' => 'required|numeric',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
-        $employee->update($validatedData);
+        try {
+            $employee = Employee::findOrFail($id);
+            Log::info('Employee found: ', $employee->toArray());
 
-        return redirect()->route('employees.index')
-            ->with('update', 'Karyawan berhasil diubah.');
+            $employee->nomor_induk = $request->nomor_induk;
+            $employee->nama_karyawan = $request->nama_karyawan;
+            $employee->no_ktp = $request->no_ktp;
+            $employee->alamat = $request->alamat;
+            $employee->tempat_lahir = $request->tempat_lahir;
+            $employee->tanggal_lahir = $request->tanggal_lahir;
+            $employee->no_telepon = $request->no_telepon;
+            $employee->jenis_kelamin = $request->jenis_kelamin;
+            $employee->agama = $request->agama;
+            $employee->status_pernikahan = $request->status_pernikahan;
+            $employee->jenjang_pendidikan = $request->jenjang_pendidikan;
+            $employee->tahun_lulus = $request->tahun_lulus;
+            $employee->tahun_bergabung = $request->tahun_bergabung;
+            $employee->lama_bekerja = $request->lama_bekerja;
+            $employee->department_id = $request->department_id;
+
+            $employee->save();
+
+            Log::info('Employee updated successfully: ', $employee->toArray());
+
+            return redirect()->route('employees.index')->with('update', 'Data karyawan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            Log::error('Failed to update employee: ', ['error' => $e->getMessage()]);
+
+            return redirect()->route('employees.edit', $id)->with('error', 'Gagal mengupdate karyawan. Silakan coba lagi.');
+        }
     }
+
+
 
     public function show($id)
     {
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::with('department')->findOrFail($id);
+
         return view('employees.show_data', compact('employee'));
     }
 
