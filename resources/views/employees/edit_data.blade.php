@@ -17,43 +17,43 @@
                         <!-- Nomor Induk Karyawan -->
                         <div class="mt-4">
                             <label for="nomor_induk" class="block font-medium text-sm text-gray-700">{{ __('Nomor Induk Karyawan') }}</label>
-                            <input id="nomor_induk" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="number" name="nomor_induk" maxlength="16" value="{{ old('nomor_induk', $employee->nomor_induk) }}" required autofocus />
+                            <input id="nomor_induk" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('nomor_induk', $employee->nomor_induk) }}" type="number" name="nomor_induk" maxlength="16" placeholder="ID Karyawan | Contoh :121212" required autofocus />
                         </div>
 
                         <!-- Nama Karyawan -->
                         <div class="mt-4">
                             <label for="nama_karyawan" class="block font-medium text-sm text-gray-700">{{ __('Nama Karyawan') }}</label>
-                            <input id="nama_karyawan" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="nama_karyawan" value="{{ old('nama_karyawan', $employee->nama_karyawan) }}" required />
+                            <input id="nama_karyawan" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('nama_karyawan', $employee->nama_karyawan) }}" type="text" name="nama_karyawan" oninput="this.value = this.value.replace(/[^A-z\s]/g, '')" placeholder="Nama Lengkap Karyawan" />
                         </div>
 
                         <!-- No KTP -->
                         <div class="mt-4">
                             <label for="no_ktp" class="block font-medium text-sm text-gray-700">{{ __('No KTP') }}</label>
-                            <input id="no_ktp" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="no_ktp" value="{{ old('no_ktp', $employee->no_ktp) }}" required />
+                            <input id="no_ktp" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('no_ktp', $employee->no_ktp) }}" type="text" name="no_ktp" pattern="\d{16}" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 16)" placeholder="No KTP Karyawan | Contoh : 3220xxxxxxxxx (16 Digit)" />
                         </div>
 
                         <!-- Alamat -->
                         <div class="mt-4">
                             <label for="alamat" class="block font-medium text-sm text-gray-700">{{ __('Alamat') }}</label>
-                            <input id="alamat" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="alamat" value="{{ old('alamat', $employee->alamat) }}" required />
+                            <input id="alamat" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('alamat', $employee->alamat) }}" type="text" name="alamat" maxlength="100" placeholder="Alamat (Lengkap)" />
                         </div>
 
                         <!-- Tempat Lahir -->
                         <div class="mt-4">
                             <label for="tempat_lahir" class="block font-medium text-sm text-gray-700">{{ __('Tempat Lahir') }}</label>
-                            <input id="tempat_lahir" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="tempat_lahir" value="{{ old('tempat_lahir', $employee->tempat_lahir) }}" required />
+                            <input id="tempat_lahir" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('tempat_lahir', $employee->tempat_lahir) }}" type="text" name="tempat_lahir" oninput="this.value = this.value.replace(/[^A-z]/g, '')" maxlength="25" placeholder="Tempat Lahir | Contoh : Bandung" required />
                         </div>
 
                         <!-- Tanggal Lahir -->
                         <div class="mt-4">
                             <label for="tanggal_lahir" class="block font-medium text-sm text-gray-700">{{ __('Tanggal Lahir') }}</label>
-                            <input id="tanggal_lahir" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir', $employee->tanggal_lahir) }}" required />
+                            <input id="tanggal_lahir" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('tanggal_lahir', $employee->tanggal_lahir) }}" type="date" name="tanggal_lahir" min="1960-01-01" max="2006-12-12" />
                         </div>
 
                         <!-- No Telepon -->
                         <div class="mt-4">
                             <label for="no_telepon" class="block font-medium text-sm text-gray-700">{{ __('No Telepon') }}</label>
-                            <input id="no_telepon" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="no_telepon" value="{{ old('no_telepon', $employee->no_telepon) }}" required />
+                            <input id="no_telepon" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('no_telepon', $employee->no_telepon) }}" type="text" name="no_telepon" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 15)" placeholder="Nomor Telepon Karyawan | Contoh : 62895xxxxxxx" />
                         </div>
 
                         <!-- Jenis Kelamin -->
@@ -106,19 +106,19 @@
                         <!-- Tahun Lulus -->
                         <div class="mt-4">
                             <label for="tahun_lulus" class="block font-medium text-sm text-gray-700">{{ __('Tahun Lulus') }}</label>
-                            <input id="tahun_lulus" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="number" name="tahun_lulus" value="{{ old('tahun_lulus', $employee->tahun_lulus) }}" required />
+                            <input id="tahun_lulus" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('tahun_lulus', $employee->tahun_lulus) }}" type="text" name="tahun_lulus" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 16)" maxlength="4" placeholder="Tahun Lulus | Contoh : 2005 " required min="1960" max="2099" />
                         </div>
 
                         <!-- Tahun Bergabung -->
                         <div class="mt-4">
                             <label for="tahun_bergabung" class="block font-medium text-sm text-gray-700">{{ __('Tahun Bergabung') }}</label>
-                            <input id="tahun_bergabung" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="number" name="tahun_bergabung" value="{{ old('tahun_bergabung', $employee->tahun_bergabung) }}" required />
+                            <input id="tahun_bergabung" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('tahun_bergabung', $employee->tahun_bergabung) }}" type="text" name="tahun_bergabung" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 16)" maxlength="4" placeholder="Tahun Bergabung | Contoh : 2020 " required min="1960" max="2099" />
                         </div>
 
                         <!-- Lama Bekerja -->
                         <div class="mt-4">
-                            <label for="lama_bekerja" class="block font-medium text-sm text-gray-700">{{ __('Lama Bekerja') }}</label>
-                            <input id="lama_bekerja" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="number" name="lama_bekerja" value="{{ old('lama_bekerja', $employee->lama_bekerja) }}" required />
+                            <label for="lama_bekerja" class="block font-medium text-sm text-gray-700">{{ __('Lama Bekerja(Bulan)') }}</label>
+                            <input id="lama_bekerja" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ old('lama_bekerja', $employee->lama_bekerja) }}" type="number" name="lama_bekerja" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)" placeholder="Lama Bekerja | Contoh : 2 Tahun isi dengan 24" required />
                         </div>
 
                         <!-- Status Karyawan -->
@@ -144,6 +144,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmEdit() {
+            let form = document.getElementById('edit-form');
+            let isValid = form.checkValidity();
+
+            if (!isValid) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Mohon lengkapi semua kolom sebelum menyimpan!'
+                });
+                return;
+            }
+
             Swal.fire({
                 title: 'Apa anda sudah yakin?',
                 text: "Anda akan mengedit data karyawan ini!",
@@ -157,7 +169,7 @@
                 if (result.isConfirmed) {
                     document.getElementById('edit-form').submit();
                 }
-            })
+            });
         }
     </script>
 </x-app-layout>

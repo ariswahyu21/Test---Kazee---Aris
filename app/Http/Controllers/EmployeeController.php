@@ -48,11 +48,17 @@ class EmployeeController extends Controller
             'status_karyawan' => 'nullable|string|max:255',
         ]);
 
-        Employee::create($request->all());
-
-        return redirect()->route('employees.index')
-            ->with('success', 'Karyawan berhasil ditambahkan.');
+        try {
+            Employee::create($request->all());
+            return redirect()->route('employees.index')
+                ->with('success', 'Karyawan berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Gagal menambahkan karyawan. Mohon inputkan data dengan valid.');
+        }
     }
+
 
     public function edit(Employee $employee)
     {
