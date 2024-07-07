@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -21,41 +22,44 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        return view('employees.create');
+        $departments = Department::all();
+        return view('employees.create', compact('departments'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nomor_induk' => [
-                'required',
-                'numeric',
-                'unique:employees,nomor_induk',
-            ],
-            'nama_karyawan' => 'required|string|max:255',
-            'no_ktp' => 'nullable|digits:16',
-            'alamat' => 'nullable|string|max:255',
-            'tempat_lahir' => 'nullable|string|max:255',
-            'tanggal_lahir' => 'nullable|date',
-            'no_telepon' => 'nullable|string|max:15',
-            'jenis_kelamin' => 'nullable|string|max:255',
-            'agama' => 'nullable|string|max:255',
-            'status_pernikahan' => 'nullable|string|max:255',
-            'jenjang_pendidikan' => 'nullable|string|max:255',
-            'tahun_lulus' => 'nullable|digits:4',
-            'tahun_bergabung' => 'nullable|digits:4',
-            'lama_bekerja' => 'nullable|integer|max:100',
-            'status_karyawan' => 'nullable|string|max:255',
+            'nomor_induk' => 'required|unique:employees',
+            // tambahkan validasi lainnya sesuai kebutuhan
         ]);
 
         try {
-            Employee::create($request->all());
-            return redirect()->route('employees.index')->with('success', 'Karyawan berhasil ditambahkan.');
+            $employee = new Employee;
+            $employee->nomor_induk = $request->nomor_induk;
+            $employee->nama_karyawan = $request->nama_karyawan;
+            $employee->no_ktp = $request->no_ktp;
+            $employee->alamat = $request->alamat;
+            $employee->tempat_lahir = $request->tempat_lahir;
+            $employee->tanggal_lahir = $request->tanggal_lahir;
+            $employee->no_telepon = $request->no_telepon;
+            $employee->jenis_kelamin = $request->jenis_kelamin;
+            $employee->agama = $request->agama;
+            $employee->status_pernikahan = $request->status_pernikahan;
+            $employee->jenjang_pendidikan = $request->jenjang_pendidikan;
+            $employee->tahun_lulus = $request->tahun_lulus;
+            $employee->tahun_bergabung = $request->tahun_bergabung;
+            $employee->lama_bekerja = $request->lama_bekerja;
+            $employee->status_karyawan = $request->status_karyawan;
+            $employee->department_id = $request->department_id; // Pastikan Anda memiliki field ini di form dan tabel employees
+            $employee->save();
+
+            return redirect()->route('employees.index')
+                ->with('success', 'Data karyawan berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan karyawan. Mohon inputkan data dengan valid.');
+            return redirect()->route('employees.create')
+                ->with('error', 'Gagal menambahkan karyawan. Data dengan nomor induk tersebut sudah ada.');
         }
     }
-
 
     public function edit(Employee $employee)
     {

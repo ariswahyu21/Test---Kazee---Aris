@@ -24,4 +24,8 @@ class Employee extends Model
         'lama_bekerja',
         'status_karyawan',
     ];
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

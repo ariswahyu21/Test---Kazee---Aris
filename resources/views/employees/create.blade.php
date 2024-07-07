@@ -129,6 +129,16 @@
                                 <option value="Magang" {{ old('status_karyawan') == 'Magang' ? 'selected' : '' }}>Magang</option>
                             </select>
                         </div>
+                        <!-- Departemen -->
+                        <div class="mt-4">
+                            <label for="department_id" class="block font-medium text-sm text-gray-700">{{ __('Departemen') }}</label>
+                            <select id="department_id" name="department_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                                <option value="">{{ __('Pilih Departemen') }}</option>
+                                @foreach ($departments as $department)
+                                <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <div class="flex items-center justify-end mt-4">
                             <a href="{{ route('employees.index') }}" class="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-indigo-600 hover:text-indigo-900">Kembali</a>
